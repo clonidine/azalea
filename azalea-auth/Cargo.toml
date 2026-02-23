@@ -16,7 +16,9 @@ crypto-primes.workspace = true # TODO: Remove when rsa is fixed.
 indexmap.workspace = true
 reqwest = { workspace = true, optional = true, default-features = false, features = [
     "json",
-    "rustls",
+    # Use rustls without a crypto provider so downstreams can choose (e.g. ring)
+    # and we don't pull in aws-lc-sys (C toolchain) by default.
+    "rustls-no-provider",
     "form",
 ] }
 rsa.workspace = true
